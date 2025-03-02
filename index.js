@@ -1,32 +1,34 @@
-// Toggle Mobile Navigation Menu
 document.addEventListener("DOMContentLoaded", function () {
     const menuToggle = document.querySelector(".menu-toggle");
     const navMenu = document.querySelector("nav ul");
 
-    if (menuToggle) {
-        menuToggle.addEventListener("click", function () {
-            navMenu.classList.toggle("show");
-        });
-    }
-});
+    menuToggle.addEventListener("click", function () {
+        navMenu.classList.toggle("active");
+    });
 
-// Smooth Scrolling for Navigation Links
-document.querySelectorAll("nav ul li a").forEach(link => {
-    link.addEventListener("click", function (event) {
+    document.querySelector("form").addEventListener("submit", function (event) {
         event.preventDefault();
-        const targetId = this.getAttribute("href").substring(1);
-        const targetSection = document.getElementById(targetId);
 
-        if (targetSection) {
-            window.scrollTo({
-                top: targetSection.offsetTop - 50,
-                behavior: "smooth"
-            });
+        const name = document.getElementById("name").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const message = document.getElementById("message").value.trim();
+
+        if (name === "" || email === "" || message === "") {
+            alert("Please fill out all fields before submitting.");
+            return;
         }
+
+        if (!/\S+@\S+\.\S+/.test(email)) {
+            alert("Please enter a valid email address.");
+            return;
+        }
+
+        alert("Thank you! Your message has been sent.");
+        document.querySelector("form").reset();
     });
 });
 
-// Simple Contact Form Validation
+
 document.addEventListener("DOMContentLoaded", function () {
     const contactForm = document.querySelector("form");
 
